@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: turbine
+server:
+  port: 4002
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1001/eureka/
+  instance:
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}  #设置服务在注册中心的实例id
+    prefer-ip-address: true
+turbine:
+  app-config: eureka-client,eureka-consumer
+  combine-host-port: true
+  cluster-name-expression: "'default'"

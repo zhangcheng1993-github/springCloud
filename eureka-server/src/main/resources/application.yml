@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: eureka-server  #应用名称
+---
+spring:
+  profiles: peer1
+server:
+  port: 1001
+eureka:
+  instance:
+    hostname: peer1  #服务端(设置当前实例的主机名称,服务默认是按照主机名称+端口号注册到中心的)
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+  client:
+    service-url:
+      defaultZone: http://peer1:1001/eureka/,http://peer2:1002/eureka/
+    #client:
+    ##    register-with-eureka: false  #不把本服务注册到注册中心
+    ##    fetch-registry: false        #不检索其它服务
+  server:
+    enable-self-preservation: false
+
+---
+spring:
+  profiles: peer2
+server:
+  port: 1002
+eureka:
+  instance:
+    hostname: peer2  #服务端(设置当前实例的主机名称,服务默认是按照主机名称+端口号注册到中心的)
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+  client:
+    service-url:
+      defaultZone: http://peer1:1001/eureka/,http://peer2:1002/eureka/

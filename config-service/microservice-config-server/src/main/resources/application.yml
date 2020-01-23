@@ -1,0 +1,33 @@
+server:
+  port: 9009    #本服务的端口
+spring:
+  application:
+    name: microservice-config-server   #本服务名称
+  cloud:
+    config:
+      server:
+        git:                           #git地址
+          uri: https://github.com/zhangcheng1993-github/spring-cloud-config.git
+          username: zhangcheng1993-github
+          password: 137972zc
+#          clone-on-start: true
+  rabbitmq:
+    addresses: 127.0.0.1:5672   #mq服务器地址
+    username: zhangcheng        #账号
+    password: 137972zc          #密码
+management:                     #开放所有端口
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  security:                    #关闭安全验证
+    enabled: false
+eureka:                        #注册到eureka设置
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1001/eureka/
+  instance:
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}  #设置服务在注册中心的实例id
+    prefer-ip-address: true
+
+

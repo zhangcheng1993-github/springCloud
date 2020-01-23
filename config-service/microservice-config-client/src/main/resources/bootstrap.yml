@@ -1,0 +1,18 @@
+spring:
+        application:
+          name: microservice-foo                            #这里对应的是git仓库里面的配置文件application-profile中的application部分
+        cloud:
+          config:
+            #      uri: http://localhost:9009
+            profile: dev                                    #这里对应的是git仓库里面的配置文件application-profile中的profile部分
+            label: master
+            discovery:
+              enabled: true                                  # 表示使用服务发现组件中的Config Server，而不自己指定Config Server的uri，默认false
+              service-id: microservice-config-server         # 指定Config Server在服务发现中的serviceId，默认是configserver
+          bus:
+            trace:
+              enabled: true
+          rabbitmq:
+            addresses: 127.0.0.1:5672   #mq服务器地址
+            username: zhangcheng        #账号
+            password: 137972zc          #密码

@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: eureka-consumer
+server:
+  port: 9001
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1001/eureka/
+  instance:
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}  #设置服务在注册中心的实例id
+    prefer-ip-address: true
+feign:
+  hystrix:
+    enabled: true
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 1000   #超时时间
+        circuitBreaker:
+          requestVolumeThreshold: 10 #超时时间内,多少个请求失败后，打开短路器
+          sleepWindowInMilliseconds: 5000 #打开短路器后,多少秒开始尝试恢复
+          errorThresholdPercentage: 50
+      metrics:
+        rollingStats:
+          timeInMilliseconds: 50000

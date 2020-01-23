@@ -1,0 +1,16 @@
+server:
+  port: 9008
+management:                    #开放所有端点
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  security:                     #关闭安全验证
+    enabled: false
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1001/eureka/
+  instance:
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}  #设置服务在注册中心的实例id
+    prefer-ip-address: true

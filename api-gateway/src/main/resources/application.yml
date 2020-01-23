@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: api-gateway
+server:
+  port: 1101
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1001/eureka/     #设置将本服务注册到哪个中心
+  instance:
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}  #设置服务在注册中心的实例id
+    prefer-ip-address: true
+management:
+  security:
+    enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+zuul:
+  routes:
+    consumer-route:
+      path: '/eureka-consumer/**'
+      service-id: eureka-consumer
+  prefix: /consumer
